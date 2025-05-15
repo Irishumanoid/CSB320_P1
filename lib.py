@@ -159,7 +159,7 @@ def get_svm_hyperparams(X_train, y_train):
 
 def model_eval_stats(X_train, y_train, X_test, y_test, X_train_resampled, y_train_resampled, knn: KNeighborsClassifier, nb: GaussianNB, log_reg: LogisticRegression, dec_tree: DecisionTreeClassifier, svm: SVC):
     '''
-    Evaluates various metrics (k-fold standard deviation and mean of f1 scores, accuracy, precision, and recall) for all models using both the original and class balanced training sets
+    Evaluates various metrics (k-fold standard deviation and mean of f1 scores, accuracy, precision, and recall) for all models using both the original and class balanced training sets. Also plots confusion matrices representing each classifer's performance on the test set.
     '''
     for i in range(2):
         cols = ['kfold mean', 'kfold stddev', 'accuracy', 'precision', 'recall']
@@ -202,7 +202,7 @@ def model_eval_stats(X_train, y_train, X_test, y_test, X_train_resampled, y_trai
 
     fig, axes = plt.subplots(1, 5, figsize=(20, 4))
     for i, ax in enumerate(axes):
-        disp = ConfusionMatrixDisplay(confusion_matrix=cms[0])
+        disp = ConfusionMatrixDisplay(confusion_matrix=cms[i])
         disp.plot(ax=ax, cmap='Blues')
         ax.set_title(f'{cols[i]} Confusion Matrix')
     plt.tight_layout()
